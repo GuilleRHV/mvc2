@@ -7,12 +7,12 @@
     <title>Document</title>
 </head>
 <body>
-<form action="../conexion.php" method="post">
+<form action="views/conexion.php" method="post">
         <p><label for="">usuario</label></p>
         <input type="text" name="usuario" id="">
         <p><label for="">password</label></p>
         <input type="text" name="password" id="">
-        <p><input type="submit" name="envio" id=""></p>
+        <p><input type="submit" name="envio" id="" value="enviar"></p>
     </form>
 </body>
 </html>
