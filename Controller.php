@@ -1,24 +1,21 @@
 <?php
 
 require_once "Product.php";
-class Controller
-{
+class Controller{
+
+    
+
+function __construct(){
+    //const vacio
+}
 
 
-
-    function __construct()
-    {
-        //const vacio
-    }
-
-
-    /*funcion que:
+/*funcion que:
     -recoge todos los productos
     - llama a vista de inventario */
 
 
-    public function home()
-    {
+    public function home(){
         $products = Product::all();
         require "views/home.php";
     }
@@ -26,8 +23,7 @@ class Controller
     /*funcion que:
         -mostrar un producto en particular
          */
-    public function show()
-    {
+    public function show(){
         $id = $_GET["id"];
         $product = Product::find($id);
         require "views/show.php";

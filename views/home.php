@@ -19,6 +19,7 @@
 
                 <td>Identificador: <?= $item[0] ?></td>
                 <td>Nombre: <?= $item[1] ?></td>
+                <td><a href='?method=show&&id=<?=$item[0]?>>'>Click</a></td>
             </tr>
 
         <?php endforeach; ?>
