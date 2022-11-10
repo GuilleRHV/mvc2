@@ -40,7 +40,7 @@ try {
             session_start();
             $datos = simplexml_load_file("../agenda.xml");
             //Crear tabla
-            
+            try {
                 $sql = "DROP TABLE IF EXISTS `personas`;
                 CREATE TABLE IF NOT EXISTS `personas` (
                   `nombre` varchar(50) NOT NULL,
@@ -92,11 +92,12 @@ try {
                 } 
 
 
-            //Mientras dure la sesion no se ejecutara
-            if(!isset($_SESSION["usuario"])){
+
                 $registros=$bd->query($sql);
-            }
             
+            } catch (PDOException $ex) {
+                echo "Mensaje de la excepcion: " . $ex->getMessage();
+                exit();
             }
             /*    $nombres = $datos->xpath("//nombre");
             
@@ -114,12 +115,12 @@ try {
             //header("Location: login.php");
             $app->invalido();
         }
-    
+    }
 
     // echo "Numero de registros devueltos: " . $registros->rowCount();
     //echo $registros;
 
 } catch (PDOException $e) {
     echo "Mensaje de la excepcion: " . $e->getMessage();
-    die();
+    exit();
 }
