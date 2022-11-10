@@ -1,3 +1,9 @@
+<?php
+if(!isset($_SESSION["usuario"])){
+    header("Location: ?method=login");
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,10 +26,12 @@
         <p><input type="text" name="nombrebuscar"><input type="button" name="buscar" value="Buscar"></p>
         <input type="button" value="Actualizar y guardar" style="font-weight: bold;" name="guardar">
         <hr>
-        <label for="">Foto</label>
+        <label for=""><h3>Foto</h3></label>
+        <p>Nombre usuario
         <input type="text" name="nombreusuario" id="">
         <input type="file" name="mifile" id="">
         <input type="submit" value="Subir foto" name="subirfoto">
+        </p>
         <?php
 
         require_once "../Controladorxml.php";

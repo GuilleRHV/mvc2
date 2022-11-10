@@ -12,6 +12,7 @@ try{
     $sql = "insert into credenciales values ('usuario3','$2y$10$/LhHyl1eroxKsZDt8VkDGbufQShS0/NKVnB0.2yzg51MTUMv.LakBG')";
     $registros = $bd->query($sql);
    // echo "Numero de registros devueltos: " . $registros->rowCount();
+   
     //echo $registros;
     
 

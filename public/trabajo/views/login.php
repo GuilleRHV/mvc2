@@ -11,7 +11,7 @@
         <p><label for="">usuario</label></p>
         <input type="text" name="usuario" id="">
         <p><label for="">password</label></p>
-        <input type="text" name="password" id="">
+        <input type="password" name="password" id="">
         <p><input type="submit" name="envio" id="" value="enviar"></p>
     </form>
 </body>
