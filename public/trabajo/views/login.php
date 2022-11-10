@@ -8,6 +8,9 @@
 </head>
 <body>
 <form action="views/conexion.php" method="post">
+<?php
+echo "USUARIO: normaluser, PASSWORD: usudwes<br>USUARIO: adminuser, PASSWORD: admindwes";
+?>
         <p><label for="">usuario</label></p>
         <input type="text" name="usuario" id="">
         <p><label for="">password</label></p>

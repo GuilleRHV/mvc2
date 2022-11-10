@@ -38,8 +38,77 @@ try {
             */
 
             session_start();
-            $sql = "drop table if not exist; create table if not exist 'usuarios'('nombre' varchar(255),'apellidos' varchar(255) not null,
-        'direccion' varchar(255), 'telefono' varchar(255));";
+            $datos = simplexml_load_file("../agenda.xml");
+            //Crear tabla
+            try {
+                $sql = "DROP TABLE IF EXISTS `personas`;
+                CREATE TABLE IF NOT EXISTS `personas` (
+                  `nombre` varchar(50) NOT NULL,
+                  `apellidos` varchar(50) NOT NULL, `direccion` varchar(50) NOT NULL,`telefono` varchar(50) NOT NULL
+                );
+                CREATE TABLE IF NOT EXISTS `empresas` (
+                    `nombre` varchar(50) NOT NULL,
+                    `direccion` varchar(50) NOT NULL, `telefono` varchar(50) NOT NULL,`email` varchar(50) NOT NULL
+                  );";
+                
+          //Creamos la tabla personas
+               $personas=$datos->xpath("/agenda/contacto[@tipo='persona']/*");
+               
+               $datospersona=[];
+      
+               $cont=0;
+                //4 es el numero de columnas
+                for ($j=0;$j<count($personas)/4;$j++){
+                    
+                   for($i = 0;$i<4;$i++){
+        
+                     $datospersona[]=$personas[$i+$cont];
+                     
+                    }
+                    $sql=$sql."insert into `personas`(`nombre`, `apellidos`, `direccion`, `telefono`) VALUES ('".$datospersona[0+$cont]."','".$datospersona[1+$cont]."','".$datospersona[2+$cont]."','".$datospersona[3+$cont]."');";
+                    
+                    $cont=$cont+4;
+                } 
+
+
+
+                //Creamos la tabla empresa
+               $empresas=$datos->xpath("/agenda/contacto[@tipo='empresa']/*");
+               
+               $datosempresa=[];
+      
+               $cont2=0;
+               //4 es el numero de columnas
+                for ($j=0;$j<count($empresas)/4;$j++){
+                    
+                   for($i = 0;$i<4;$i++){
+        
+                     $datosempresa[]=$empresas[$i+$cont2];
+                     
+                    }
+                    $sql=$sql."insert into `empresas`(`nombre`, `direccion`, `telefono`, `email`) VALUES ('".$datosempresa[0+$cont2]."','".$datosempresa[1+$cont2]."','".$datosempresa[2+$cont2]."','".$datosempresa[3+$cont2]."');";
+                    
+                    $cont2=$cont2+4;
+                } 
+
+
+
+                $registros=$bd->query($sql);
+            
+            } catch (PDOException $ex) {
+                echo "Mensaje de la excepcion: " . $ex->getMessage();
+                exit();
+            }
+            /*    $nombres = $datos->xpath("//nombre");
+            
+            foreach ($nombres as $nombre) {
+                
+            }*/
+
+
+
+
+
             $_SESSION["usuario"] = $nombreintroducido;
             $app->valido();
         } else {

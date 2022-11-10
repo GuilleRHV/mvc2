@@ -28,8 +28,9 @@
         <input type="submit" value="Subir foto" name="subirfoto">
         </p>
         <?php
-
-        require_once "Controladorxml.php";
+        //A VECES DA ERROR:
+        //a) Controladorxml.php     b)../Controladorxml.php
+        require_once "../Controladorxml.php";
          $control = new Controladorxml();
         //  $control->cargar();
         if (isset($_POST["subirfoto"])) {
