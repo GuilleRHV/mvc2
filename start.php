@@ -5,14 +5,14 @@
  * accion: metodos del controlador
  * parametros: find  id del producto
  */
-echo "<h2>Contenido privado</h2>";
+
 
 /*$controller = new Controller();
 $controller->home();
 echo "SHOW";
 $controller->show();*/
 
-
+/*
 require "Controller.php";
 $app = new Controller();
 //Defino variable de peticion en la url
@@ -36,4 +36,7 @@ $app->$method();
     die("Metodo no encontrado");
 }
 
+*/
+require_once "core/App.php";
 
+$app = new App();

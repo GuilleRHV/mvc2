@@ -1,3 +1,5 @@
 <?php
 //require "../start.php";
- header("Location: trabajo/index.php");
+
+//Para el trabajo
+    header("Location: trabajo/index.php");
