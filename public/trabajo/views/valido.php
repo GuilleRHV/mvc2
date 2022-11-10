@@ -1,9 +1,4 @@
-<?php
-if(!isset($_SESSION["usuario"])){
-    header("Location: ?method=login");
-}
 
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,7 +29,7 @@ if(!isset($_SESSION["usuario"])){
         </p>
         <?php
 
-        require_once "../Controladorxml.php";
+        require_once "Controladorxml.php";
          $control = new Controladorxml();
         //  $control->cargar();
         if (isset($_POST["subirfoto"])) {
