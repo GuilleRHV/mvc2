@@ -17,31 +17,26 @@ try{
     $sql = "select usuario,password from credenciales";
     $registros = $bd->query($sql);
     //echo "Numero de registros devueltos: " . $registros->rowCount();
+    $valido = false;
     if($registros->rowCount()>0){
         foreach($registros as $fila){
             echo "<br>Nombre de usuario: " . $fila["usuario"];
             echo "<br>Password: " . $fila["password"];
             echo "<br>Password decodificada: " ;
-        }
-    }
-    $valido = false;
-    if($registros->rowCount()>0){
-        $valido = false;
-        foreach($registros as $fila){
             if ($fila["usuario"]==$nombreintroducido && password_verify($passwordintroducido,$fila["password"])){
-                //$fila["usuario"]==$nombreintroducido && $fila["password"]==$passwordintroducido
-                $valido = true;
-                
+            $valido=true;
             }
         }
+
         if($valido){
-            echo "<h1>correcto</h1>";
+            require_once "../App.php";
+            $app = new App();
+            $app->valido();
         }else{
-            echo "<h1>Invalido</h1>";
+            echo "<h1>Es invalido</h1>";
         }
-    }else{
-        echo "<h1>Esta vacio</h1>";
     }
+    
    // echo "Numero de registros devueltos: " . $registros->rowCount();
     //echo $registros;
 

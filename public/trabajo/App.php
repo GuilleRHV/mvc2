@@ -11,6 +11,9 @@ class App{
         }
         $this->$method();*/
     }
+    function valido(){
+        require_once "views/valido.php";
+    }
 
 
     function conexion(){
