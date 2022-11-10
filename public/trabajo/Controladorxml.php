@@ -37,4 +37,16 @@ class Controladorxml
             "Echo la persona no existe";
         }
     }
+
+    function buscar(){
+        $datos = simplexml_load_file("../agenda.xml");
+        $nombres = $datos->xpath("//nombre");
+        $existe = false;
+        foreach ($nombres as $nombre) {
+            //echo "<br>Nombre: " . $nombre;
+            if ($_POST["nombreusuario"] == $nombre) {
+                $existe = true;
+            }
+        }
+    }
 }

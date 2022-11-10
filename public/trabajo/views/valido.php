@@ -21,7 +21,7 @@ if(!isset($_SESSION["usuario"])){
 
         <p><input type="button" name="crear" value="Crear"></p>
         <label for="">Eliminar contacto</label>
-        <p><input type="button" name="eliminar" value="Eliminar"></p>
+        <p><input type="text" name="nombreeliminar"><input type="button" name="eliminar" value="Eliminar"></p>
         <label for="">Buscar por nombre</label>
         <p><input type="text" name="nombrebuscar"><input type="button" name="buscar" value="Buscar"></p>
         <input type="button" value="Actualizar y guardar" style="font-weight: bold;" name="guardar">
@@ -43,7 +43,7 @@ if(!isset($_SESSION["usuario"])){
 
                 $control->foto();
             }else{
-                echo "El usuario no existe";
+                echo "<p style='color: red;'>El usuario no existe";
             }
         }
         ?>
