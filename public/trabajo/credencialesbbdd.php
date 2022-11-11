@@ -1,13 +1,13 @@
 <?php
+   //mysql:dbname=<nombre_bbdd>;host=<ip | nombre>;
+   $dsn = "mysql:dbname=agenda;host=db";
+   $usuario = "root";
+   $clave = "password";
 
-$dsn = "mysql:dbname=agenda;host=db";
-$usuario = "root";
-$clave = "password";
-
-try{
-$bd = new PDO($dns,$usuario,$clave);
-echo "conexion";
-}catch(PDOException $ex){
-    echo "Mensaje de la excepcion: " . $ex->getMessage();
+try {
+    $bd = new PDO($dsn,$usuario,$clave);
+} catch (PDOException $e) {
+    echo "Mensaje de la excepcion : " . $e->getMessage();
     exit();
+   
 }

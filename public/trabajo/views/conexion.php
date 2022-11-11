@@ -1,15 +1,8 @@
 <?php
+    require "../credencialesbbdd.php";
 //mysql:dbname=<nombre_bbdd>;host=<ip | nombre>;
-$dsn = "mysql:dbname=agenda;host=db";
-$usuario = "root";
-$clave = "password";
 
 //echo "<br>Conexion satisfactioria<br>";
-try {
-
-    $nombreintroducido = $_POST["usuario"];
-    $passwordintroducido = $_POST["password"];
-    $bd = new PDO($dsn, $usuario, $clave);
 
     //USUARIO: normaluser, PASSWORD: usudwes
     //USUARIO: adminuser, PASSWORD: admindwes
@@ -45,7 +38,7 @@ try {
                 CREATE TABLE IF NOT EXISTS `personas` (
                   `nombre` varchar(50) NOT NULL,
                   `apellidos` varchar(50) NOT NULL, `direccion` varchar(50) NOT NULL,`telefono` varchar(50) NOT NULL
-                );
+                );DROP TABLE IF EXISTS `personas`;
                 CREATE TABLE IF NOT EXISTS `empresas` (
                     `nombre` varchar(50) NOT NULL,
                     `direccion` varchar(50) NOT NULL, `telefono` varchar(50) NOT NULL,`email` varchar(50) NOT NULL
@@ -119,7 +112,4 @@ try {
     // echo "Numero de registros devueltos: " . $registros->rowCount();
     //echo $registros;
 
-} catch (PDOException $e) {
-    echo "Mensaje de la excepcion: " . $e->getMessage();
-    die();
-}
+

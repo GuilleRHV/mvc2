@@ -10,6 +10,28 @@ if (isset($_POST["crear"])) {
         $app->nuevaempresa();
     }
 }
+
+if (isset($_POST["envionuevo"])) {
+            
+    require "../credencialesbbdd.php";
+        echo "1.";
+
+        echo "conexion";
+
+
+
+        $sql = "select * from `personas` where `nombre`='" . $_POST["nombre"] . "';";
+        $registros = $bd->query($sql);
+        if ($registros->rowCount() > 0) {
+            //Existe alguien con ese nombre
+            echo "Ya hay alguien con ese nombre";
+        } else {
+            $sql = "insert into `personas`(`nombre`, `apellidos`, `direccion`, `telefono`) VALUES ('" . $_POST["nombre"] . "','" . $_POST["apellidos"] . "','" . $_POST["direccion"] . "','" . $_POST["telefono"] . "');";
+            $registros = $bd->query($sql);
+            echo "registrado correctamente";
+        }
+    
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,32 +86,7 @@ if (isset($_POST["crear"])) {
 
 
 
-        if (isset($_POST["envionuevo"])) {
-            $dsn2 = "mysql:dbname=agenda;host=db";
-            $usuario2 = "dbuser";
-            $clave2 = "secret";
-            try {
-                echo "1.";
-                $bd2 = new PDO($dns2, $usuario2, $clave2);
-                echo "conexion";
-
-
-
-                $sql = "select * from `personas` where `nombre`='" . $_POST["nombre"] . "';";
-                $registros = $bd2->query($sql);
-                if ($registros->rowCount() > 0) {
-                    //Existe alguien con ese nombre
-                    echo "Ya hay alguien con ese nombre";
-                } else {
-                    $sql = "insert into `personas`(`nombre`, `apellidos`, `direccion`, `telefono`) VALUES ('" . $_POST["nombre"] . "','" . $_POST["apellidos"] . "','" . $_POST["direccion"] . "','" . $_POST["telefono"] . "');";
-                    $registros = $bd2->query(($sql));
-                    echo "registrado correctamente";
-                }
-            } catch (PDOException $exc) {
-                echo "Mensaje de la excepcion: " . $exc->getMessage();
-                die();
-            }
-        }
+        
 
 
 
