@@ -17,10 +17,32 @@ if (isset($_POST["eliminar"])) {
     $app = new App();
     header("Location: ?method=eliminarusuario");
 }
-
-if (isset($_POST["nombrebuscar"])) {
+if (isset($_POST["buscar"])){
+    //if (isset($_POST["nombrebuscar"])) {
+    echo "AAAAAAAAA";
     require_once "credencialesbbdd.php";
-    
+    //Lee presona
+    $sql = "select * from `usuarios` where `nombre` LIKE '".$_POST["nombrebuscar"]."';";
+    $registros = $bd->query($sql);
+    foreach($registros as $persona){
+        echo "<h4>Persona</h4>";
+        echo "Nombre: ". $persona["nombre"]."<br>";
+        echo "Apellidos: ". $persona["apellidos"]."<br>";
+        echo "Email: ". $persona["email"]."<br>";
+        echo "Telefono: ". $persona["telefono"]."<br>";
+
+    }
+    //Lee empresa
+    $sql = "select * from `usuarios`;";
+    $registros = $bd->query($sql);
+    foreach($registros as $empresa){
+        echo "<h4>Empresa</h4>";
+        echo "Nombre: ". $empresa["nombre"]."<br>";
+        echo "Direccion: ". $empresa["direccion"]."<br>";
+        echo "Telefono: ". $empresa["telefono"]."<br>";       
+        echo "Email: ". $empresa["email"]."<br>";
+
+    }
 }
 //CREAMOS 1 PERSONA
 if (isset($_POST["envionuevapersona"])) {
@@ -88,6 +110,11 @@ if (isset($_POST["envioeliminar"])) {
         echo $sql;
         
     }
+
+
+
+
+
    
     
     /*$cont = 0;
