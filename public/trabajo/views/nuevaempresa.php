@@ -10,7 +10,7 @@
 
 <body>
     <h1>Nueva empresa</h1>
-    <form action="views/valido.php" method="post">
+    <form action="?method=valido" method="post">
         <label for="">Nombre</label>
         <p><input type="text" name="nombre"></p>
         <label for="">Direccion</label>

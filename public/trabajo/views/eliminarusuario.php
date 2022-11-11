@@ -10,9 +10,9 @@
 
 <body>
     <h1>Eliminar usuario</h1>
-    <form action="views/valido.php" method="post">
+    <form action="?method=valido" method="post">
         <label for="">Nombre de la persona que quieres eliminar</label>
-        <p><input type="text" name="nombreliminar"></p>
+        <p><input type="text" name="nombreeliminar"></p>
         
         <input type="submit" name="envioeliminar" value="eliminar usuario">
     </form>

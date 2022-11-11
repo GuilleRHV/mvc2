@@ -110,10 +110,12 @@ require "../credencialesbbdd.php";
 
 
             $_SESSION["usuario"] = $nombreintroducido;
-            $app->valido();
+           // $app->valido();
+            header("Location: ../?method=valido");
         } else {
             //header("Location: login.php");
-            $app->invalido();
+           // $app->invalido();
+            header("Location: ../?method=login");
         }
     
 

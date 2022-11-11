@@ -1,25 +1,27 @@
 <?php
-require_once "../App.php";
-$app = new App();
+
 
 if (isset($_POST["crear"])) {
-
+    require_once "App.php";
+    $app = new App();
     if ($_POST["opcionelemento"] == "persona") {
-        $app->crearpersona();
+        header("Location: ?method=nuevapersona");
     }
     if ($_POST["opcionelemento"] == "empresa") {
-        $app->crearempresa();
+        header("Location: ?method=nuevaempresa");
     }
 }
 
 if (isset($_POST["eliminar"])) {
-    $app->eliminarusuario();
+    require_once "App.php";
+    $app = new App();
+    header("Location: ?method=eliminarusuario");
 }
 //CREAMOS 1 PERSONA
 if (isset($_POST["envionuevapersona"])) {
 
-    require "../credencialesbbdd.php";
-    echo "1.";
+    require "credencialesbbdd.php";
+
 
     echo "conexion";
 
@@ -40,8 +42,8 @@ if (isset($_POST["envionuevapersona"])) {
 
 if (isset($_POST["envionuevaempresa"])) {
 
-    require "../credencialesbbdd.php";
-    echo "1.";
+    require "credencialesbbdd.php";
+
 
     echo "conexion";
 
@@ -59,31 +61,42 @@ if (isset($_POST["envionuevaempresa"])) {
     }
 }
 
-
+//ELIMINAMOS*******************************
 
 if (isset($_POST["envioeliminar"])) {
 
-    require "../credencialesbbdd.php";
+    require "credencialesbbdd.php";
 
 
     echo "conexion";
 
 
+    
+  //  DELETE FROM `personas` WHERE `nombre` LIKE 'Ana'; 
 
-    $sql = "select * from `personas` where `nombre`='" . $_POST["nombre"] . "';";
-    $registros = $bd->query($sql);
-    $cont = 0;
+
+ 
+        $sql = "delete from `personas` where `nombre` LIKE '" . $_POST["nombreeliminar"] . "';";
+        $sql = $sql."delete from `empresas` where `nombre` LIKE '" . $_POST["nombreeliminar"] . "';";
+        //$sql = $sql ."delete from `empresas` where `nombre`=='" . $_POST["nombreeliminar"] . "';";
+        $registros = $bd->query($sql);
+        echo $sql;
+        
+    }
+   
+    
+    /*$cont = 0;
     if ($registros->rowCount() > 0) {
         //importan las mayusculas
-        $sql = "delete from `personas` where `nombre`='" . $_POST["nombre"] . "';";
+        $sql = "delete from `personas` where `nombre`='" . $_POST["nombreeliminar"] . "';";
         echo "Se ha eliminado una persona";
         $cont++;
     }
-    $sql = "select * from `empresas` where `nombre`='" . $_POST["nombre"] . "';";
+    $sql = "select * from `empresas` where `nombre`='" . $_POST["nombreeliminar"] . "';";
     $registros = $bd->query($sql);
     if ($registros->rowCount() > 0) {
         //importan las mayusculas
-        $sql = $ql . "delete from `empresas` where `nombre`='" . $_POST["nombre"] . "';";
+        $sql = $ql . "delete from `empresas` where `nombre`='" . $_POST["nombreeliminar"] . "';";
         echo "Se ha eliminado una persona";
         $cont++;
         $registros = $bd->query($sql);
@@ -91,10 +104,12 @@ if (isset($_POST["envioeliminar"])) {
         if ($cont != 0) {
             echo "nº de usuarios eliminados: " + $cont;
         } else {
-            echo "No se ha eliminado ningun usuario";
+            echo $sql;
         }
-    }
-}
+    }*/
+
+    
+
 
 
 ?>
@@ -104,7 +119,7 @@ if (isset($_POST["envioeliminar"])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Valido</title>
 </head>
 
 <body>
@@ -119,7 +134,7 @@ if (isset($_POST["envioeliminar"])) {
         </p>
         <p><input type="submit" name="crear" value="Crear"></p>
         <label for="">Eliminar contacto</label>
-        <p><input type="button" name="eliminar" value="Eliminar"></p>
+        <p><input type="submit" name="eliminar" value="Eliminar"></p>
         <label for="">Buscar por nombre</label>
         <p><input type="text" name="nombrebuscar"><input type="button" name="buscar" value="Buscar"></p>
         <input type="button" value="Actualizar y guardar" style="font-weight: bold;" name="guardar">
