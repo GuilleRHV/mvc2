@@ -17,6 +17,11 @@ if (isset($_POST["eliminar"])) {
     $app = new App();
     header("Location: ?method=eliminarusuario");
 }
+
+if (isset($_POST["nombrebuscar"])) {
+    require_once "credencialesbbdd.php";
+    
+}
 //CREAMOS 1 PERSONA
 if (isset($_POST["envionuevapersona"])) {
 
