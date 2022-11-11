@@ -20,23 +20,34 @@ if (isset($_POST["eliminar"])) {
 }
 
 //CREAMOS 1 PERSONA
-
+$personarepetida=false;
 if (isset($_POST["envionuevapersona"])) {
 
     require "credencialesbbdd.php";
-    $sql = "select * from `personas` where `nombre`='" . $_POST["nombre"] . "';";
-    $sql = $sql . "select * from `empresas` where `nombre`='" . $_POST["nombre"] . "';";
+   
+    $sql = "select * from `personas` where `nombre`='" . $_POST["nombrepersona"] . "';";
+    $sql = $sql . "select * from `empresas` where `nombre`='" . $_POST["nombrepersona"] . "';";
     $registros = $bd->query($sql);
     if ($registros->rowCount() > 0) {
         //Existe alguien con ese nombre
+
         $personarepetida = true;
-        echo "Ya hay alguien con ese nombre";
+        echo "Ya hay alguien con ese nombre<br>";
+        echo $sql;
+        
     } else {
+        $sql = "insert into `personas`(`nombre`, `apellidos`, `direccion`, `telefono`) VALUES ('" . $_POST["nombrepersona"] . "','" . $_POST["apellidospersona"] . "','" . $_POST["direccionpersona"] . "','" . $_POST["telefonopersona"] . "');";
+        
+        
+        $registros = $bd->query($sql);
+        echo $sql;
+        echo "<br>persona registrada correctamente<br>";
+       
+    }
+  /*  if(!$repetida){
         $sql = "insert into `personas`(`nombre`, `apellidos`, `direccion`, `telefono`) VALUES ('" . $_POST["nombre"] . "','" . $_POST["apellidos"] . "','" . $_POST["direccion"] . "','" . $_POST["telefono"] . "');";
         $registros = $bd->query($sql);
-        echo "persona registrada correctamente<br>";
-        echo $sql;
-    }
+    }*/
 }
 //CREAMOS UNA EMPRESA
 
@@ -54,12 +65,13 @@ if (isset($_POST["envionuevaempresa"])) {
     $registros = $bd->query($sql);
     if ($registros->rowCount() > 0) {
         //Existe alguien con ese nombre
-        echo "Ya hay alguien con ese nombre";
+        echo "Ya hay alguien con ese nombre<br>";
+        echo $sql;
         $personarepetida = true;
     } else {
-        $sql = "insert into `empresas`(`nombre`, `direccion`, `telefono`, `email`) VALUES ('" . $_POST["nombre"] . "','" . $_POST["direccion"] . "','" . $_POST["telefono"] . "','" . $_POST["email"] . "');";
-        $registros = $bd->query($sql);
-        echo "empresa registrada correctamente";
+        $sql = "insert into `empresas` (`nombre`, `direccion`, `telefono`, `email`) VALUES ('" . $_POST["nombre"] . "','" . $_POST["direccion"] . "','" . $_POST["telefono"] . "','" . $_POST["email"] . "');";
+        $registros2 = $bd->query($sql);
+        echo $sql;
     }
 }
 
@@ -68,7 +80,7 @@ if (isset($_POST["envionuevaempresa"])) {
 
 
 if (isset($_POST["envioeliminar"])) {
- 
+    $encontradoeliminar=false;
     require "credencialesbbdd.php";
 
 
@@ -79,21 +91,19 @@ if (isset($_POST["envioeliminar"])) {
     //  DELETE FROM `personas` WHERE `nombre` LIKE 'Ana'; 
 
 
-    $sql = "select * from `empresas` where `nombre`='" . $_POST["nombreeliminar"] . "';";
-    $sql = $sql . $sql = "select * from `personas` where `nombre`='" . $_POST["nombreeliminar"] . "';";
+    $sql = "select * from `empresas` where `nombre`='" . $_POST["nombre"] . "';";
+    $sql = $sql . $sql = "select * from `personas` where `nombre`='" . $_POST["nombre"] . "';";
     $registros = $bd->query($sql);
     if ($registros->rowCount() > 0) {
         //Se puede eliminar
         $sql = "delete from `personas` where `nombre` LIKE '" . $_POST["nombreeliminar"] . "';";
         $sql = $sql . "delete from `empresas` where `nombre` LIKE '" . $_POST["nombreeliminar"] . "';";
-
+        //$sql = $sql ."delete from `empresas` where `nombre`=='" . $_POST["nombreeliminar"] . "';";
         $registros = $bd->query($sql);
-        echo "<br>Se ha eliminado un usuario";
-      //  $encontradoeliminar=true;
+        echo "Se ha eliminado un usuario";
+        $encontradoeliminar=true;
     } else {
-        echo $sql;
-        echo "<br>";
-        echo "<p style='color: red; font-weight: bold;'>AVISO: No hay nadie con ese nombre</p>";
+        echo "<p style='color: red; font-weight: bold;'>AVISO: No existe ninguna persona con ese nombre</p>";
     }
         
     }
@@ -101,6 +111,37 @@ if (isset($_POST["envioeliminar"])) {
 
 
     //      style='color: red; font-weight: bold;'
+
+
+
+
+
+
+
+
+/*$cont = 0;
+    if ($registros->rowCount() > 0) {
+        //importan las mayusculas
+        $sql = "delete from `personas` where `nombre`='" . $_POST["nombreeliminar"] . "';";
+        echo "Se ha eliminado una persona";
+        $cont++;
+    }
+    $sql = "select * from `empresas` where `nombre`='" . $_POST["nombreeliminar"] . "';";
+    $registros = $bd->query($sql);
+    if ($registros->rowCount() > 0) {
+        //importan las mayusculas
+        $sql = $ql . "delete from `empresas` where `nombre`='" . $_POST["nombreeliminar"] . "';";
+        echo "Se ha eliminado una persona";
+        $cont++;
+        $registros = $bd->query($sql);
+    } else {
+        if ($cont != 0) {
+            echo "nº de usuarios eliminados: " + $cont;
+        } else {
+            echo $sql;
+        }
+    }*/
+
 
 
 
