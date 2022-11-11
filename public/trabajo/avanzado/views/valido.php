@@ -20,7 +20,7 @@ if (isset($_POST["eliminar"])) {
 }
 
 //CREAMOS 1 PERSONA
-
+$personarepetida = false;
 if (isset($_POST["envionuevapersona"])) {
 
     require "credencialesbbdd.php";
@@ -91,7 +91,7 @@ if (isset($_POST["envioeliminar"])) {
         echo "Se ha eliminado un usuario";
         $encontradoeliminar=true;
     } else {
-        echo "<p style='color: red; font-weight: bold;'>AVISO: No existe ninguna persona con ese nombre</p>";
+        echo "<p style='color: red; font-weight: bold;'>AVISO: Ya hay una persona con ese nombre</p>";
     }
         
     }
