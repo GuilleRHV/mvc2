@@ -49,8 +49,25 @@ class App
         require_once "views/nuevapersona.php";
     }
 
+    function crearempresa(){
+        header("Location: ../?method=nuevaempresa");
+    }
 
     function nuevaempresa(){
-        header("Location: nuevaempresa.php");
+        require_once "views/nuevaempresa.php";
     }
+
+
+    function eliminarusuario(){
+        header("Location: ../?method=eliminadausuario");
+    }
+
+    function eliminadausuario(){
+        require_once "views/eliminarusuario.php";
+    }
+
+
+
+
+   
 }

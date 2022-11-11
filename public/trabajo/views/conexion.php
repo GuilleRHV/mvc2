@@ -1,8 +1,12 @@
 <?php
-    require "../credencialesbbdd.php";
+/////////////////////////////////////////////////////////////////////////77
 //mysql:dbname=<nombre_bbdd>;host=<ip | nombre>;
 
-//echo "<br>Conexion satisfactioria<br>";
+require "../credencialesbbdd.php";
+
+    $nombreintroducido = $_POST["usuario"];
+    $passwordintroducido = $_POST["password"];
+    $bd = new PDO($dsn, $usuario, $clave);
 
     //USUARIO: normaluser, PASSWORD: usudwes
     //USUARIO: adminuser, PASSWORD: admindwes
@@ -11,6 +15,7 @@
     $registros = $bd->query($sql);
     //echo "Numero de registros devueltos: " . $registros->rowCount();
     $valido = false;
+    //Si no hay usuarios en la bbdd nos volvera a redirigir 
     if ($registros->rowCount() > 0) {
         foreach ($registros as $fila) {
             /*  echo "<br>Nombre de usuario: " . $fila["usuario"];
@@ -22,6 +27,9 @@
                 $valido = true;
             }
         }
+    }
+
+
         require_once "../App.php";
         $app = new App();
         if ($valido) {
@@ -38,7 +46,7 @@
                 CREATE TABLE IF NOT EXISTS `personas` (
                   `nombre` varchar(50) NOT NULL,
                   `apellidos` varchar(50) NOT NULL, `direccion` varchar(50) NOT NULL,`telefono` varchar(50) NOT NULL
-                );DROP TABLE IF EXISTS `personas`;
+                );DROP TABLE IF EXISTS `empresas`;
                 CREATE TABLE IF NOT EXISTS `empresas` (
                     `nombre` varchar(50) NOT NULL,
                     `direccion` varchar(50) NOT NULL, `telefono` varchar(50) NOT NULL,`email` varchar(50) NOT NULL
@@ -86,11 +94,11 @@
 
 
             //Mientras dure la sesion no se ejecutara
-            if(!isset($_SESSION["usuario"])){
+            //if(!isset($_SESSION["usuario"])){
                 $registros=$bd->query($sql);
-            }
+          //  }
             
-            }
+           
             /*    $nombres = $datos->xpath("//nombre");
             
             foreach ($nombres as $nombre) {

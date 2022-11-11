@@ -9,17 +9,17 @@
 </head>
 
 <body>
-    <h1>Nueva persona</h1>
+    <h1>Nueva empresa</h1>
     <form action="views/valido.php" method="post">
         <label for="">Nombre</label>
         <p><input type="text" name="nombre"></p>
-        <label for="">Apellidos</label>
-        <p><input type="text" name="apellidos"></p>
         <label for="">Direccion</label>
         <p><input type="text" name="direccion"></p>
         <label for="">Telefono</label>
         <p><input type="text" name="telefono"></p>
-        <input type="submit" name="envionuevapersona" value="crear persona">
+        <label for="">Email</label>
+        <p><input type="text" name="email"></p>
+        <input type="submit" name="envionuevaempresa" value="crear empresa">
     </form>
 
 </body>
