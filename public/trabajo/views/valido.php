@@ -1,6 +1,5 @@
 <?php
 
-$aviso = "<p style='color: red; font-weight: bold;'>Prueba</p>";
 
 if (isset($_POST["crear"])) {
     require_once "App.php";
@@ -20,22 +19,24 @@ if (isset($_POST["eliminar"])) {
 }
 
 //CREAMOS 1 PERSONA
-
 if (isset($_POST["envionuevapersona"])) {
 
     require "credencialesbbdd.php";
+
+
+    echo "conexion";
+
+
+
     $sql = "select * from `personas` where `nombre`='" . $_POST["nombre"] . "';";
-    $sql = $sql . "select * from `empresas` where `nombre`='" . $_POST["nombre"] . "';";
     $registros = $bd->query($sql);
     if ($registros->rowCount() > 0) {
         //Existe alguien con ese nombre
-        $personarepetida = true;
         echo "Ya hay alguien con ese nombre";
     } else {
         $sql = "insert into `personas`(`nombre`, `apellidos`, `direccion`, `telefono`) VALUES ('" . $_POST["nombre"] . "','" . $_POST["apellidos"] . "','" . $_POST["direccion"] . "','" . $_POST["telefono"] . "');";
         $registros = $bd->query($sql);
-        echo "persona registrada correctamente<br>";
-        echo $sql;
+        echo "persona registrada correctamente";
     }
 }
 //CREAMOS UNA EMPRESA
@@ -50,12 +51,10 @@ if (isset($_POST["envionuevaempresa"])) {
 
 
     $sql = "select * from `empresas` where `nombre`='" . $_POST["nombre"] . "';";
-    $sql = $sql . $sql = "select * from `personas` where `nombre`='" . $_POST["nombre"] . "';";
     $registros = $bd->query($sql);
     if ($registros->rowCount() > 0) {
         //Existe alguien con ese nombre
         echo "Ya hay alguien con ese nombre";
-        $personarepetida = true;
     } else {
         $sql = "insert into `empresas`(`nombre`, `direccion`, `telefono`, `email`) VALUES ('" . $_POST["nombre"] . "','" . $_POST["direccion"] . "','" . $_POST["telefono"] . "','" . $_POST["email"] . "');";
         $registros = $bd->query($sql);
@@ -65,43 +64,57 @@ if (isset($_POST["envionuevaempresa"])) {
 
 //ELIMINAMOS*******************************
 
-
-
 if (isset($_POST["envioeliminar"])) {
- 
+
     require "credencialesbbdd.php";
 
 
     echo "conexion";
 
 
+    
+  //  DELETE FROM `personas` WHERE `nombre` LIKE 'Ana'; 
 
-    //  DELETE FROM `personas` WHERE `nombre` LIKE 'Ana'; 
 
-
-    $sql = "select * from `empresas` where `nombre`='" . $_POST["nombreeliminar"] . "';";
-    $sql = $sql . $sql = "select * from `personas` where `nombre`='" . $_POST["nombreeliminar"] . "';";
-    $registros = $bd->query($sql);
-    if ($registros->rowCount() > 0) {
-        //Se puede eliminar
+ 
         $sql = "delete from `personas` where `nombre` LIKE '" . $_POST["nombreeliminar"] . "';";
-        $sql = $sql . "delete from `empresas` where `nombre` LIKE '" . $_POST["nombreeliminar"] . "';";
-
+        $sql = $sql."delete from `empresas` where `nombre` LIKE '" . $_POST["nombreeliminar"] . "';";
+        //$sql = $sql ."delete from `empresas` where `nombre`=='" . $_POST["nombreeliminar"] . "';";
         $registros = $bd->query($sql);
-        echo "<br>Se ha eliminado un usuario";
-      //  $encontradoeliminar=true;
-    } else {
         echo $sql;
-        echo "<br>";
-        echo "<p style='color: red; font-weight: bold;'>AVISO: No hay nadie con ese nombre</p>";
-    }
         
     }
+
+
+
+
+
+   
     
+    /*$cont = 0;
+    if ($registros->rowCount() > 0) {
+        //importan las mayusculas
+        $sql = "delete from `personas` where `nombre`='" . $_POST["nombreeliminar"] . "';";
+        echo "Se ha eliminado una persona";
+        $cont++;
+    }
+    $sql = "select * from `empresas` where `nombre`='" . $_POST["nombreeliminar"] . "';";
+    $registros = $bd->query($sql);
+    if ($registros->rowCount() > 0) {
+        //importan las mayusculas
+        $sql = $ql . "delete from `empresas` where `nombre`='" . $_POST["nombreeliminar"] . "';";
+        echo "Se ha eliminado una persona";
+        $cont++;
+        $registros = $bd->query($sql);
+    } else {
+        if ($cont != 0) {
+            echo "nº de usuarios eliminados: " + $cont;
+        } else {
+            echo $sql;
+        }
+    }*/
 
-
-    //      style='color: red; font-weight: bold;'
-
+    
 
 
 
@@ -125,15 +138,9 @@ if (isset($_POST["envioeliminar"])) {
                 <option value="empresa">Empresa</option>
             </select>
         </p>
-        <?php
-        if ($personarepetida) {
-            echo "<p style='color: red; font-weight: bold;'>AVISO: Ya hay una persona con ese nombre</p>";
-        }
-        ?>
         <p><input type="submit" name="crear" value="Crear"></p>
         <label for="">Eliminar contacto</label>
         <p><input type="submit" name="eliminar" value="Eliminar"></p>
-      
         <label for="">Buscar por nombre</label>
         <p><input type="text" name="nombrebuscar"><input type="submit" name="buscar" value="Buscar"></p>
         <?php
@@ -176,7 +183,6 @@ if (isset($_POST["envioeliminar"])) {
         }
         /************************************************************************+ */
         ?>
-        <br>
         <input type="button" value="Actualizar y guardar" style="font-weight: bold;" name="guardar">
         <hr>
         <label for="">
@@ -186,7 +192,6 @@ if (isset($_POST["envioeliminar"])) {
             <input type="text" name="nombreusuario" id="">
             <input type="file" name="mifile" id="">
             <input type="submit" value="Subir foto" name="subirfoto">
-
         </p>
         <?php
         //A VECES DA ERROR:
@@ -194,19 +199,31 @@ if (isset($_POST["envioeliminar"])) {
 
         //  $control->cargar();
         if (isset($_POST["subirfoto"])) {
+            $fotovalida=false;
             require_once "credencialesbbdd.php";
-            $sql="select * from personas where nombre like '".$_POST["nombreusuario"]."';";
-            $sql = $sql . "select * from personas where nombre like '".$_POST["nombreusuario"]."';";
-            //$control->foto();
+            $sql = "select * from empresas where nombre like '".$_POST["nombreusuario"]."';";
             $registros = $bd->query($sql);
+        //VER SI EXISTE EN EMPRESAS
             if($registros->rowCount()>0){
                 require_once "Controladorxml.php";
                 $control = new Controladorxml();
                 $control->foto();
-            }else{
-                echo "No existe el usuario";
+                $fotovalida=true;
+            }
+            $sql=$sql=" select * from personas where nombre like '".$_POST["nombreusuario"]."';";
+            $registros = $bd->query($sql);
+        //VER SI EXISTE EN PERSONAS
+            if($registros->rowCount()>0){
+                require_once "Controladorxml.php";
+                $control = new Controladorxml();
+                $control->foto();
+                $fotovalida=true;
+            }
+            if(!$fotovalida){
+               echo "<h4 style='color: red; font-weight: bold;' >No existe ningun usuario con ese nombre</h4>";
             }
         }
+
 
 
 

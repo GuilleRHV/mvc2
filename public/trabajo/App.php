@@ -67,10 +67,6 @@ class App
         require_once "views/eliminarusuario.php";
     }
 
-    function actualizarusuario(){
-        require_once "views/modificarusuario.php";
-    }
-
 
 
 
