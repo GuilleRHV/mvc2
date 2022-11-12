@@ -26,15 +26,13 @@ class Controladorxml
     }
     function foto()
     {
-        if ($this->existeusuario()) {
+        
             //Dar permisos a las carpetas (sudo chmod 777 uploads)
-            $destino = "../uploads/" . $_FILES["mifile"]["name"];
+            $destino = "uploads/" . $_FILES["mifile"]["name"];
             echo "nombre fichero: " . $_FILES["mifile"]["name"];
             $flag = move_uploaded_file($_FILES["mifile"]["tmp_name"], $destino);
-            rename("../uploads/" . $_FILES["mifile"]["name"],"../uploads/" . $_POST["nombreusuario"]);
+            rename("uploads/" . $_FILES["mifile"]["name"],"uploads/" . $_POST["nombreusuario"]);
             echo $flag ? "Subido correctamente" : "Error al subir";
-        }else{
-            "Echo la persona no existe";
-        }
+        
     }
 }

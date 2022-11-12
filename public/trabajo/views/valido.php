@@ -194,14 +194,17 @@ if (isset($_POST["envioeliminar"])) {
 
         //  $control->cargar();
         if (isset($_POST["subirfoto"])) {
-            require_once "../Controladorxml.php";
-            $control = new Controladorxml();
+            require_once "credencialesbbdd.php";
+            $sql="select * from personas where nombre like '".$_POST["nombreusuario"]."';";
+            $sql = $sql . "select * from personas where nombre like '".$_POST["nombreusuario"]."';";
             //$control->foto();
-            if ($control->existeusuario()) {
-
+            $registros = $bd->query($sql);
+            if($registros->rowCount()>0){
+                require_once "Controladorxml.php";
+                $control = new Controladorxml();
                 $control->foto();
-            } else {
-                echo "El usuario no existe";
+            }else{
+                echo "No existe el usuario";
             }
         }
 
