@@ -157,20 +157,25 @@ if (isset($_POST["envioeliminar"])) {
             if (!$encontrado) {
                 echo "<h4 style='color: red; font-weight: bold;' >No se ha encontrado ningun usuario con el nombre introducido</h4>";
             }else{
-                
-              //  echo '<img src="uploads/'.$_POST["nombrebuscar"].'.jpeg" style="width: 150px;height: 150px"><img>';
+                //SI EXISTE EL USUARIO BUSCAMOS SI TIENE FOTO DE PERFIL
             
             /************************BUSCANDO FOTO*/
+                $fotoencontrada = false;
                 $nombrebuscar = "uploads/".$_POST["nombrebuscar"].".jpeg";
+              //  echo $nombrebuscar;
                 if(file_exists($nombrebuscar)){
+                    echo "<br>";
                     echo '<img src="'.$nombrebuscar.'" style="width: 150px;height: 150px"><img><br>';
+                    $fotoencontrada=true;
                 }
                 $nombrebuscar = "uploads/".$_POST["nombrebuscar"].".png";
                 if(file_exists($nombrebuscar)){
+                    echo "<br>";
                     echo '<img src="'.$nombrebuscar.'" style="width: 150px;height: 150px"><img><br>';
+                    $fotoencontrada=true;
                 }
                 //Con extension PDF no mostrará imagen
-                else{
+                if(!$fotoencontrada){
                     echo "<p style='color: orange;'>No existe la foto</p>";
                 }
             
