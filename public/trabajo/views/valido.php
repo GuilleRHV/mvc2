@@ -105,7 +105,7 @@ if (isset($_POST["envioeliminar"])) {
 
 <body>
 
-    <h1>Es valido <?=$_SESSION[session_name()]?></h1>
+    <h1>Es valido</h1>
     <form action="" method="post" enctype="multipart/form-data">
         <label for="">Crear contacto</label>
         <p><select name="opcionelemento" id="">
