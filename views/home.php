@@ -20,7 +20,7 @@
 
                 <td>Identificador: <?= $item[0] ?></td>
                 <td>Nombre: <?= $item[1] ?></td>
-                <td><a href='show?method=show&&id=<?=$item[0]?>'>Click</a></td>
+                <td><a href='product/show?method=show&&id=<?=$item[0]?>'>Click</a></td>
            
             </tr>
 

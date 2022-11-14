@@ -45,7 +45,7 @@
         
         //voy a cargar el controlador. ProductoController.php
         $file = "../app/controllers/$controllerName" . ".php";
-        var_dump($file);
+        //var_dump($file);
         if(file_exists($file)){
        
             require_once $file; //importo el fichero
@@ -57,7 +57,7 @@
 
         //existe el metodo en el controlador?
         $controllerObject = new $controllerName; //OBJETO de la clase
-        if(method_exists($controllerObject,$method)){
+        if(method_exists($controllerObject, $method)){
             $controllerObject->$method($arguments);
         }else{  
             http_response_code(404);

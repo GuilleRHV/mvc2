@@ -22,9 +22,9 @@ class HomeController{
     function show(){
         echo "<br>Dentro show de HOMECONTROLLER";
         //metodo show de Controller de mvc00
-      $id = $_GET["id"];
+   /*   $id = $_GET["id"];
       $product = Product::find($id);
-        require "../views/show.php";
+        require "../views/show.php";*/
     }//fin_mindex
 
 
