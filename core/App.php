@@ -12,17 +12,19 @@
     {
         // http://mvc.local/product/show => http://mvc.local/index.php?url=product/show
 
-        if(isset($_GET["url"]) && !empty($$_GET["url"])){
+        if(isset($_GET["url"]) && !empty($_GET["url"])){
             $url=$_GET["url"];
         }else{
             $url = "home";
         }
 
         
+        
         //product/show/5 => product: recurso; show: accion; 5: parametro
         //Explode separa una cadena (split en java)
         //trim te elimina el elemento del principio y final de la cadena
-        $arguments = explode("/", trim($url,"/") );
+        $arguments = explode('/', trim($url,'/') );
+
         //Arguments sera un array, elemento 1-> recurso, elemento 2->accion 
         
         //array_shift quita el primer valor del array y lo devuelve
@@ -32,15 +34,20 @@
         $controllerName=ucwords($controllerName) . "Controller";
 
         //VER SI TIENE MAS ELEMENTOS
-        if(count($arguments)){
+        echo count($arguments);
+        if(count($arguments)>0){
             $method = array_shift($arguments);
         }else{
             $method="index";
         }
-
+        
+        
+        
         //voy a cargar el controlador. ProductoController.php
-        $file = "app/controllers/$controllerName" . ".php";
+        $file = "../app/controllers/$controllerName" . ".php";
+        var_dump($file);
         if(file_exists($file)){
+       
             require_once $file; //importo el fichero
 
         }else{
@@ -50,13 +57,13 @@
 
         //existe el metodo en el controlador?
         $controllerObject = new $controllerName; //OBJETO de la clase
-
         if(method_exists($controllerObject,$method)){
             $controllerObject->$method($arguments);
         }else{  
             http_response_code(404);
             die("No encontrado");
         }
+        
 
 
     }//fin_constructor

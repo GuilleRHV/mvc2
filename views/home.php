@@ -12,6 +12,7 @@
     <h1>Inventario de productos</h1>
     <table>
         <?php
+             //<td><a href='show&&id=<?=$item[0]interrogacion>'>Click</a></td>   
         //<?= es php echo
         foreach ($products as $item) : ?>
 
@@ -19,7 +20,8 @@
 
                 <td>Identificador: <?= $item[0] ?></td>
                 <td>Nombre: <?= $item[1] ?></td>
-                <td><a href='?method=show&&id=<?=$item[0]?>>'>Click</a></td>
+                <td><a href='show?method=show&&id=<?=$item[0]?>'>Click</a></td>
+           
             </tr>
 
         <?php endforeach; ?>
