@@ -1,11 +1,11 @@
 <?php
 
-namespace Dwes\Galaxias;
+namespace Dwes\Galaxias\Pegaso;
 
-const RADIO = 1.25; // millones de años luz
+const RADIO = 0.75; // millones de años luz
 
 function observar($mensaje){
-    echo "<br>Estoy mirando a la galaxia ". $mensaje;
+    echo "<br>Estoy dirigiendome a la galaxia ". $mensaje;
 }
 
 class Galaxia
@@ -23,12 +23,6 @@ class Galaxia
     }
     static function muerte()
     {
-        echo "<br> Me destruyo!";
-    }
-
-
-    function __toString()
-    {
-        return "esto son galaxias superiores";
+        echo "<br> Me estoy destruyendo!";
     }
 }//fin_clase

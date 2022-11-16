@@ -1,4 +1,5 @@
 <?php
+namespace App\Controllers;
 include "../Product.php";
 
 class HomeController{
@@ -13,7 +14,7 @@ class HomeController{
     function index(){
         echo "<br>Dentro index de HOMECONTROLLER";
         //metodo home de Controller de mvc00
-       $products = Product::all();
+       $products = \Product::all();
       // include "../views/header.php";
         include "../app/views/home.php";
        // require "../views/footer.php";
@@ -23,7 +24,7 @@ class HomeController{
         echo "<br>Dentro show de HOMECONTROLLER";
         //metodo show de Controller de mvc00
       $id = $_GET["id"];
-      $product = Product::find($id);
+      $product = \Product::find($id);
         require "../views/show.php";
     }//fin_mindex
 

@@ -37,6 +37,16 @@ $app->$method();
 }
 
 */
-require_once "core/App.php";
+//require_once "core/App.php";
 
-$app = new App();
+//$app = new App();
+//////
+
+require "../core/App.php";
+$app = new \Core\App();
+
+
+////////////
+
+//require "../core/App.php";
+//$app = new \Core\App();
