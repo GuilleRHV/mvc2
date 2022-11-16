@@ -36,6 +36,7 @@ class App
 
         //ucwords convierte la primera letra de una cadena en mayuscula
         $controllerName = ucwords($controllerName) . "Controller";
+        
 
         //VER SI TIENE MAS ELEMENTOS
         echo count($arguments);

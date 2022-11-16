@@ -45,8 +45,3 @@ $app->$method();
 require "../core/App.php";
 $app = new \Core\App();
 
-
-////////////
-
-//require "../core/App.php";
-//$app = new \Core\App();

@@ -1,4 +1,5 @@
 <?php
+namespace App\Controllers;
 require "../Product.php";
 
 class LoginController{
