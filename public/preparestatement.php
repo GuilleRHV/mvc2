@@ -20,6 +20,10 @@ $clave1 = "1234";
 $sentencia->bindParam(':nombre',$nombre);
 $sentencia->bindParam('clave',$clave1);
 
+//Saldra Juan, no Pedro
+//$sentencia->bindValue(':nombre',$nombre);
+//$sentencia->bindValue('clave',$clave1);
+
 $nombre = "Pedro";
 $clave1 = "789";
 $sentencia->execute(); //ejecuta la sentencia
