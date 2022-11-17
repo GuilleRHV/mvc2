@@ -37,6 +37,7 @@ class App
         //ucwords convierte la primera letra de una cadena en mayuscula
         $controllerName = ucwords($controllerName) . "Controller";
         
+        
 
         //VER SI TIENE MAS ELEMENTOS
         echo count($arguments);
@@ -60,6 +61,8 @@ class App
             die("No encontrado");
         }
 
+
+        $controllerName = "\\App\\Controllers\\" . $controllerName ;
         //existe el metodo en el controlador?
         $controllerObject = new $controllerName; //OBJETO de la clase
         if (method_exists($controllerObject, $method)) {
