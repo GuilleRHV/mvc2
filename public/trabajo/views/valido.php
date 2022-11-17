@@ -91,7 +91,30 @@ if (isset($_POST["envioeliminar"])) {
         echo $sql;
         
     }
+    /***MODIFICAR USUARIOS*************************************** */
+    if(isset($_POST["modificar"])){
+        require_once "credencialesbbdd.php";
+        $sql = "select * from empresas where nombre like '" . $_POST["nombremodificar"] . "';";
+        $registros = $bd->query($sql);
+        //echo $_POST["nombremodificar"];
 
+        //VER SI EXISTE EN EMPRESAS
+        if ($registros->rowCount() > 0) {
+            session_start();
+            $_SESSION["nombremodificar"]=$_POST["nombremodificar"];
+            header("Location: ?method=modificarempresa");
+        }
+        $sql = $sql = " select * from personas where nombre like '" . $_POST["nombremodificar"] . "';";
+        $registros = $bd->query($sql);
+        //VER SI EXISTE EN PERSONAS
+        if ($registros->rowCount() > 0) {
+            session_start();
+            $_SESSION["nombremodificar"]=$_POST["nombremodificar"];
+            header("Location: ?method=modificarpersona");
+        }
+        
+    }
+/******************************************************************++ */
     session_start();
 ?>
 <!DOCTYPE html>
@@ -186,7 +209,10 @@ if (isset($_POST["envioeliminar"])) {
         }
         /************************************************************************+ */
         ?>
+        <label for="">Modificar contacto</label>
+        <p><input type="text" name="nombremodificar"><input type="submit" name="modificar" value="Modificar"></p>
         <input type="button" value="Actualizar y guardar" style="font-weight: bold;" name="guardar">
+        
         <hr>
         <label for="">
             <h3>Foto</h3>
@@ -227,7 +253,36 @@ if (isset($_POST["envioeliminar"])) {
             }
         }
 
+
+
+
+        if(isset($_POST["personamodificada"])){
+            require_once "credencialesbbdd.php";
+            $sql = "update personas set `apellidos`='".$_POST["apellidos"]."', `direccion`='".$_POST["direccion"]."',`telefono`='".$_POST["telefono"]."' where `nombre`='".$_SESSION["nombremodificar"]."'";
+            $registros = $bd->query($sql);
+            session_start();
+            //$_SESSION["nombremodificar"]=array();
+            //session_destroy();
+           // setcookie("nombremodificar","",time()-1,"/");
+            ///
+            unset($_SESSION["nombremodificar"]);
+        }
+
+
+        if(isset($_POST["empresamodificada"])){
+            require_once "credencialesbbdd.php";
+            $sql = "update empresas set `direccion`='".$_POST["direccion"]."', `telefono`='".$_POST["telefono"]."',`email`='".$_POST["email"]."' where `nombre`='".$_SESSION["nombremodificar"]."'";
+            $registros = $bd->query($sql);
+            session_start();
+            //$_SESSION["nombremodificar"]=array();
+            //session_destroy();
+           // setcookie("nombremodificar","",time()-1,"/");
+            ///
+            unset($_SESSION["nombremodificar"]);
+        }
+
         ?>
+        
         <input type="submit" value="Cerrar sesion" style="font-weight: bold;" name="cerrarsesion">
         
         
@@ -235,5 +290,8 @@ if (isset($_POST["envioeliminar"])) {
 
     </form>
 </body>
+
+
+
 
 </html>
