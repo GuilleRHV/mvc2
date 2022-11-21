@@ -49,6 +49,29 @@ class App
 
     function nuevapersona()
     {
+        //CREAMOS 1 PERSONA
+/*if (isset($_POST["envionuevapersona"])) {
+
+    require "credencialesbbdd.php";
+
+
+    echo "conexion";
+
+
+
+    $sql = "select * from `personas` where `nombre`='" . $_POST["nombre"] . "';";
+    $registros = $bd->query($sql);
+    if ($registros->rowCount() > 0) {
+        //Existe alguien con ese nombre
+        echo "Ya hay alguien con ese nombre";
+        $errornuevousuario = true;
+    } else {
+        $sql = "insert into `personas`(`nombre`, `apellidos`, `direccion`, `telefono`) VALUES ('" . $_POST["nombre"] . "','" . $_POST["apellidos"] . "','" . $_POST["direccion"] . "','" . $_POST["telefono"] . "');";
+        $registros = $bd->query($sql);
+        //Indicara un mensaje de exito
+        $nuevousuario = true;
+    }
+}*/
         require_once "views/nuevapersona.php";
     }
     /*

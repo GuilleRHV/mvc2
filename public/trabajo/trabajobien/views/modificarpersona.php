@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Modificar persona</h1>
-    <?=$_SESSION["nombremodificar"]?>
+
     <form action="?method=valido" method="post">
         <label for="">Nombre</label>
         <p><?=$_SESSION["nombremodificar"]?></p>
