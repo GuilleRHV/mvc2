@@ -32,13 +32,18 @@ class Login
             $sentencia->setFetchMode(PDO::FETCH_CLASS, "Login");
             $sentencia->execute(); //Ejecuta la sentencia
 
-            while ($obj = $sentencia->fetch()) {
+        /*    while ($obj = $sentencia->fetch()) {
                 //print_r($obj);
                 echo "<br>Nombre: " . $obj->nombreusu;
                 echo "<br>Password: " . $obj->password;
 
-            } //fin while
+            } //fin while*/
+            $credenciales = $sentencia->fetchAll(PDO::FETCH_CLASS,"Login");
+            foreach($credenciales as $credencial){
+                echo "<br>Nombre: ". $credencial->nombreusu;
+                echo "<br>Password: ". $credencial->password;
 
+            }
 
         } catch (PDOException $e) {
             echo "<br>Error conexion: " . $e->getMessage() . "<br>";
