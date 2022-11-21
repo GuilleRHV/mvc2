@@ -49,6 +49,7 @@ class App
 
     function nuevapersona()
     {
+
         require_once "views/nuevapersona.php";
     }
     /*

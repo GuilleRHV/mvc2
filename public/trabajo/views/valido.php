@@ -4,6 +4,8 @@ $nuevousuario = false;
 $errornuevousuario = false;
 $usuarioeliminado = false;
 $errorusuarioeliminado = false;
+$fotovalida = false;
+$errorfotovalida=false;
 
 if (isset($_POST["cerrarsesion"])) {
     session_start();
@@ -32,14 +34,7 @@ if (isset($_POST["eliminar"])) {
 
 //CREAMOS 1 PERSONA
 if (isset($_POST["envionuevapersona"])) {
-
     require "credencialesbbdd.php";
-
-
-    echo "conexion";
-
-
-
     $sql = "select * from `personas` where `nombre`='" . $_POST["nombre"] . "';";
     $registros = $bd->query($sql);
     if ($registros->rowCount() > 0) {
@@ -58,12 +53,6 @@ if (isset($_POST["envionuevapersona"])) {
 if (isset($_POST["envionuevaempresa"])) {
 
     require "credencialesbbdd.php";
-
-
-    echo "conexion";
-
-
-
     $sql = "select * from `empresas` where `nombre`='" . $_POST["nombre"] . "';";
     $registros = $bd->query($sql);
     if ($registros->rowCount() > 0) {
@@ -76,7 +65,7 @@ if (isset($_POST["envionuevaempresa"])) {
     }
 }
 
-//ELIMINAMOS*******************************
+//*****************************ELIMINAMOS*******************************
 
 if (isset($_POST["envioeliminar"])) {
 
@@ -115,7 +104,55 @@ if (isset($_POST["modificar"])) {
         header("Location: ?method=modificarpersona");
     }
 }
-/******************************************************************++ */
+/********************SUBIR FOTO PERFIL**********************************************++ */
+
+if (isset($_POST["subirfoto"])) {
+    require_once "credencialesbbdd.php";
+    $sql = "select * from empresas where nombre like '" . $_POST["nombreusuario"] . "';";
+    $registros = $bd->query($sql);
+    //VER SI EXISTE EN EMPRESAS
+    if ($registros->rowCount() > 0) {
+        require_once "Controladorxml.php";
+        $control = new Controladorxml();
+        $control->foto();
+        $fotovalida = true;
+    }
+    $sql = $sql = " select * from personas where nombre like '" . $_POST["nombreusuario"] . "';";
+    $registros = $bd->query($sql);
+    //VER SI EXISTE EN PERSONAS
+    if ($registros->rowCount() > 0) {
+        require_once "Controladorxml.php";
+        $control = new Controladorxml();
+        $control->foto();
+        $fotovalida = true;
+    }
+
+    if(!$fotovalida){
+        $errorfotovalida=true;
+    }
+}
+
+
+/*****************************MODIFICAR USUARIO*************************************************++++ */
+
+if (isset($_POST["personamodificada"])) {
+    require_once "credencialesbbdd.php";
+    $sql = "update personas set `apellidos`='" . $_POST["apellidos"] . "', `direccion`='" . $_POST["direccion"] . "',`telefono`='" . $_POST["telefono"] . "' where `nombre`='" . $_SESSION["nombremodificar"] . "'";
+    $registros = $bd->query($sql);
+    session_start();
+    unset($_SESSION["nombremodificar"]);
+}
+
+
+if (isset($_POST["empresamodificada"])) {
+    require_once "credencialesbbdd.php";
+    $sql = "update empresas set `direccion`='" . $_POST["direccion"] . "', `telefono`='" . $_POST["telefono"] . "',`email`='" . $_POST["email"] . "' where `nombre`='" . $_SESSION["nombremodificar"] . "'";
+    $registros = $bd->query($sql);
+    session_start();
+    unset($_SESSION["nombremodificar"]);
+}
+
+
 
 ?>
 <!DOCTYPE html>
@@ -220,13 +257,10 @@ if (isset($_POST["modificar"])) {
                 if (!$fotoencontrada) {
                     echo "<p style='color: orange;'>No existe la foto</p>";
                 }
-
-
-
                 /*****************************  */
             }
         }
-        /************************************************************************+ */
+        /********************FIN BUSCAR USUARIO**********************************************+ */
         ?>
         <label for="">Modificar contacto</label>
         <p><input type="text" name="nombremodificar"><input type="submit" name="modificar" value="Modificar"></p>
@@ -240,71 +274,19 @@ if (isset($_POST["modificar"])) {
             <input type="text" name="nombreusuario" id="">
             <input type="file" name="mifile" id="">
             <input type="submit" value="Subir foto" name="subirfoto">
+            <?php
+            if ($fotovalida) {
+                echo "<h4 style='color: green; font-weight: bold;' >Foto de usuario subida correctamente</h4>";
+            }
+            if($errorfotovalida){
+                echo "<h4 style='color: red; font-weight: bold;' > No existe ningun usuario con ese nombre</h4>";
+            }   
+            
+            ?>
         </p>
-        <?php
-        //A VECES DA ERROR:
-        //a) Controladorxml.php     b)../Controladorxml.php
 
-        //  $control->cargar();
-        if (isset($_POST["subirfoto"])) {
-            $fotovalida = false;
-            require_once "credencialesbbdd.php";
-            $sql = "select * from empresas where nombre like '" . $_POST["nombreusuario"] . "';";
-            $registros = $bd->query($sql);
-            //VER SI EXISTE EN EMPRESAS
-            if ($registros->rowCount() > 0) {
-                require_once "Controladorxml.php";
-                $control = new Controladorxml();
-                $control->foto();
-                $fotovalida = true;
-            }
-            $sql = $sql = " select * from personas where nombre like '" . $_POST["nombreusuario"] . "';";
-            $registros = $bd->query($sql);
-            //VER SI EXISTE EN PERSONAS
-            if ($registros->rowCount() > 0) {
-                require_once "Controladorxml.php";
-                $control = new Controladorxml();
-                $control->foto();
-                $fotovalida = true;
-            }
-            if (!$fotovalida) {
-                echo "<h4 style='color: red; font-weight: bold;' >No existe ningun usuario con ese nombre</h4>";
-            }
-        }
-
-
-
-
-        if (isset($_POST["personamodificada"])) {
-            require_once "credencialesbbdd.php";
-            $sql = "update personas set `apellidos`='" . $_POST["apellidos"] . "', `direccion`='" . $_POST["direccion"] . "',`telefono`='" . $_POST["telefono"] . "' where `nombre`='" . $_SESSION["nombremodificar"] . "'";
-            $registros = $bd->query($sql);
-            session_start();
-            //$_SESSION["nombremodificar"]=array();
-            //session_destroy();
-            // setcookie("nombremodificar","",time()-1,"/");
-            ///
-            unset($_SESSION["nombremodificar"]);
-        }
-
-
-        if (isset($_POST["empresamodificada"])) {
-            require_once "credencialesbbdd.php";
-            $sql = "update empresas set `direccion`='" . $_POST["direccion"] . "', `telefono`='" . $_POST["telefono"] . "',`email`='" . $_POST["email"] . "' where `nombre`='" . $_SESSION["nombremodificar"] . "'";
-            $registros = $bd->query($sql);
-            session_start();
-            //$_SESSION["nombremodificar"]=array();
-            //session_destroy();
-            // setcookie("nombremodificar","",time()-1,"/");
-            ///
-            unset($_SESSION["nombremodificar"]);
-        }
-
-        ?>
 
         <input type="submit" value="Cerrar sesion" style="font-weight: bold;" name="cerrarsesion">
-
-
 
 
     </form>
