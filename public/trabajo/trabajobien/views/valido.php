@@ -91,7 +91,30 @@ if (isset($_POST["envioeliminar"])) {
         echo $sql;
         
     }
+    /***MODIFICAR USUARIOS*************************************** */
+    if(isset($_POST["modificar"])){
+        require_once "credencialesbbdd.php";
+        $sql = "select * from empresas where nombre like '" . $_POST["nombremodificar"] . "';";
+        $registros = $bd->query($sql);
+        //echo $_POST["nombremodificar"];
 
+        //VER SI EXISTE EN EMPRESAS
+        if ($registros->rowCount() > 0) {
+            session_start();
+            $_SESSION["nombremodificar"]=$_POST["nombremodificar"];
+            header("Location: ?method=modificarempresa");
+        }
+        $sql = $sql = " select * from personas where nombre like '" . $_POST["nombremodificar"] . "';";
+        $registros = $bd->query($sql);
+        //VER SI EXISTE EN PERSONAS
+        if ($registros->rowCount() > 0) {
+            session_start();
+            $_SESSION["nombremodificar"]=$_POST["nombremodificar"];
+            header("Location: ?method=modificarpersona");
+        }
+        
+    }
+/******************************************************************++ */
     session_start();
 ?>
 <!DOCTYPE html>
@@ -105,7 +128,7 @@ if (isset($_POST["envioeliminar"])) {
 
 <body>
 
-    <h1>Es valido <?=$_SESSION[session_name()]?></h1>
+    <h1>Es valido</h1>
     <form action="" method="post" enctype="multipart/form-data">
         <label for="">Crear contacto</label>
         <p><select name="opcionelemento" id="">
@@ -157,20 +180,25 @@ if (isset($_POST["envioeliminar"])) {
             if (!$encontrado) {
                 echo "<h4 style='color: red; font-weight: bold;' >No se ha encontrado ningun usuario con el nombre introducido</h4>";
             }else{
-                
-              //  echo '<img src="uploads/'.$_POST["nombrebuscar"].'.jpeg" style="width: 150px;height: 150px"><img>';
+                //SI EXISTE EL USUARIO BUSCAMOS SI TIENE FOTO DE PERFIL
             
             /************************BUSCANDO FOTO*/
+                $fotoencontrada = false;
                 $nombrebuscar = "uploads/".$_POST["nombrebuscar"].".jpeg";
+              //  echo $nombrebuscar;
                 if(file_exists($nombrebuscar)){
+                    echo "<br>";
                     echo '<img src="'.$nombrebuscar.'" style="width: 150px;height: 150px"><img><br>';
+                    $fotoencontrada=true;
                 }
                 $nombrebuscar = "uploads/".$_POST["nombrebuscar"].".png";
                 if(file_exists($nombrebuscar)){
+                    echo "<br>";
                     echo '<img src="'.$nombrebuscar.'" style="width: 150px;height: 150px"><img><br>';
+                    $fotoencontrada=true;
                 }
                 //Con extension PDF no mostrará imagen
-                else{
+                if(!$fotoencontrada){
                     echo "<p style='color: orange;'>No existe la foto</p>";
                 }
             
@@ -181,7 +209,10 @@ if (isset($_POST["envioeliminar"])) {
         }
         /************************************************************************+ */
         ?>
+        <label for="">Modificar contacto</label>
+        <p><input type="text" name="nombremodificar"><input type="submit" name="modificar" value="Modificar"></p>
         <input type="button" value="Actualizar y guardar" style="font-weight: bold;" name="guardar">
+        
         <hr>
         <label for="">
             <h3>Foto</h3>
@@ -222,7 +253,36 @@ if (isset($_POST["envioeliminar"])) {
             }
         }
 
+
+
+
+        if(isset($_POST["personamodificada"])){
+            require_once "credencialesbbdd.php";
+            $sql = "update personas set `apellidos`='".$_POST["apellidos"]."', `direccion`='".$_POST["direccion"]."',`telefono`='".$_POST["telefono"]."' where `nombre`='".$_SESSION["nombremodificar"]."'";
+            $registros = $bd->query($sql);
+            session_start();
+            //$_SESSION["nombremodificar"]=array();
+            //session_destroy();
+           // setcookie("nombremodificar","",time()-1,"/");
+            ///
+            unset($_SESSION["nombremodificar"]);
+        }
+
+
+        if(isset($_POST["empresamodificada"])){
+            require_once "credencialesbbdd.php";
+            $sql = "update empresas set `direccion`='".$_POST["direccion"]."', `telefono`='".$_POST["telefono"]."',`email`='".$_POST["email"]."' where `nombre`='".$_SESSION["nombremodificar"]."'";
+            $registros = $bd->query($sql);
+            session_start();
+            //$_SESSION["nombremodificar"]=array();
+            //session_destroy();
+           // setcookie("nombremodificar","",time()-1,"/");
+            ///
+            unset($_SESSION["nombremodificar"]);
+        }
+
         ?>
+        
         <input type="submit" value="Cerrar sesion" style="font-weight: bold;" name="cerrarsesion">
         
         
@@ -230,5 +290,8 @@ if (isset($_POST["envioeliminar"])) {
 
     </form>
 </body>
+
+
+
 
 </html>

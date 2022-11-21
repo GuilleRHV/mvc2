@@ -14,9 +14,9 @@
 <?php
 echo "USUARIO: normaluser, PASSWORD: usudwes<br>USUARIO: adminuser, PASSWORD: admindwes";
 ?>
-        <p><label for="">usuario</label></p>
+        <p><label for="">Usuario</label></p>
         <input type="text" name="usuario" id="">
-        <p><label for="">password</label></p>
+        <p><label for="">Password</label></p>
         <input type="password" name="password" id="">
         <p><input type="submit" name="envio" id="" value="enviar"></p>
     </form>
