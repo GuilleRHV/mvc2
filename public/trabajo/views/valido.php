@@ -8,15 +8,22 @@ $fotovalida = false;
 $errorfotovalida=false;
 
 if (isset($_POST["cerrarsesion"])) {
-   require_once "controllers/controladorvalido.php";
-   $control = new controladorvalido();
-   $control->cerrarsesion();
+    session_start();
+    $_SESSION = array();
+    session_destroy();
+    setcookie(session_name(), "", time() - 1, "/");
+    header("Location: ?method=login");
 }
 
 if (isset($_POST["crear"])) {
     require_once "App.php";
     $app = new App();
-    $app->crearusuario();
+    if ($_POST["opcionelemento"] == "persona") {
+        header("Location: ?method=nuevapersona");
+    }
+    if ($_POST["opcionelemento"] == "empresa") {
+        header("Location: ?method=nuevaempresa");
+    }
 }
 
 if (isset($_POST["eliminar"])) {
@@ -257,7 +264,6 @@ if (isset($_POST["empresamodificada"])) {
         ?>
         <label for="">Modificar contacto</label>
         <p><input type="text" name="nombremodificar"><input type="submit" name="modificar" value="Modificar"></p>
-        <input type="button" value="Actualizar y guardar" style="font-weight: bold;" name="guardar">
 
         <hr>
         <label for="">
