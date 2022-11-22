@@ -9,7 +9,7 @@
     <title>Document</title>
 </head>
 <body>
-<form action="views/conexion.php" method="post">
+<form action="conexion.php" method="post">
 <h1>Login</h1>
 <?php
 echo "USUARIO: normaluser, PASSWORD: usudwes<br>USUARIO: adminuser, PASSWORD: admindwes";
