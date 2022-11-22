@@ -1,5 +1,5 @@
 <?php
-
+namespace Core;
 class App
 {
 
@@ -32,10 +32,6 @@ class App
         require_once "views/valido.php";
     }
 
-    /* function invalido()
-    {
-        header("Location: ../?method=login");
-    }*/
 
 
     function conexion()
@@ -43,13 +39,18 @@ class App
         require_once "views/conexion.php";
     }
 
-    /*  function crearpersona(){
-        header("Location: ../?method=nuevapersona");
-    }*/
+     function crearusuario(){
+        if ($_POST["opcionelemento"] == "persona") {
+            require_once "views/nuevapersona.php";
+        }
+        if ($_POST["opcionelemento"] == "empresa") {
+            require_once "views/nuevaempresa.php";
+        }
+    }
 
     function nuevapersona()
     {
-
+       
         require_once "views/nuevapersona.php";
     }
     /*
@@ -82,6 +83,14 @@ class App
 
     function modificarempresa(){
         require_once  "views/modificarempresa.php";
+    }
+
+    function cerrarsesion(){
+        session_start();
+        $_SESSION = array();
+        session_destroy();
+        setcookie(session_name(), "", time() - 1, "/");
+        header("Location: ?method=login");
     }
     
 }

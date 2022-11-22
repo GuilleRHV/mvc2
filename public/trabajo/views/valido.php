@@ -8,22 +8,15 @@ $fotovalida = false;
 $errorfotovalida=false;
 
 if (isset($_POST["cerrarsesion"])) {
-    session_start();
-    $_SESSION = array();
-    session_destroy();
-    setcookie(session_name(), "", time() - 1, "/");
-    header("Location: ?method=login");
+   require_once "controllers/controladorvalido.php";
+   $control = new controladorvalido();
+   $control->cerrarsesion();
 }
 
 if (isset($_POST["crear"])) {
     require_once "App.php";
     $app = new App();
-    if ($_POST["opcionelemento"] == "persona") {
-        header("Location: ?method=nuevapersona");
-    }
-    if ($_POST["opcionelemento"] == "empresa") {
-        header("Location: ?method=nuevaempresa");
-    }
+    $app->crearusuario();
 }
 
 if (isset($_POST["eliminar"])) {
