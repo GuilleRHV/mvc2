@@ -2,7 +2,7 @@
 /////////////////////////////////////////////////////////////////////////77
 //mysql:dbname=<nombre_bbdd>;host=<ip | nombre>;
 session_start();
-require "../credencialesbbdd.php";
+require "credencialesbbdd.php";
 
 $nombreintroducido = $_POST["usuario"];
 $passwordintroducido = $_POST["password"];
@@ -30,7 +30,7 @@ if ($registros->rowCount() > 0) {
 }
 
 
-require_once "../App.php";
+require_once "App.php";
 $app = new App();
 if ($valido) {
     /*
@@ -39,7 +39,7 @@ if ($valido) {
             */
 
     //       session_start();
-    $datos = simplexml_load_file("../agenda.xml");
+    $datos = simplexml_load_file("agenda.xml");
     //Crear tabla
 
     $sql = "DROP TABLE IF EXISTS `personas`;
@@ -109,9 +109,9 @@ if ($valido) {
     //    session_start();
     $_SESSION["usuario"] = $nombreintroducido;
     // $app->valido();
-    header("Location: ../?method=valido");
+    header("Location: ?method=valido");
 } else {
     //header("Location: login.php");
     // $app->invalido();
-    header("Location: ../?method=login");
+    header("Location: ?method=login");
 }
