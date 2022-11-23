@@ -14,6 +14,9 @@
               <a class="nav-link active" href="product">Product</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link active" href="user">Usuarios</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link disabled" href="#">Disabled</a>
             </li>
           </ul>

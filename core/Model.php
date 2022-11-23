@@ -1,7 +1,7 @@
 <?php
 namespace Core;
 
-require_once '/config/db.php';
+require_once '../config/db.php';
 use const Config\DSN;
 use const Config\USER;
 use const Config\PASSWORD;
