@@ -2,6 +2,7 @@
 namespace App\Controllers;
 require "../Product.php";
 use \App\Model\Product;
+
 class ProductController{
 
     function __construct()
@@ -27,5 +28,19 @@ class ProductController{
     }//fin_mindex
 
 
+
+    function pdf(){
+        
+        use Dompdf\Dompdf;
+    include_once "../vendor/autoload.php";
+    $dompdf = new Dompdf();
+    $dompdf->loadHtml('<h1>Hola mundo</h1><br><a href="https://parzibyte.me/blog">By Parzibyte</a>');
+    $dompdf->render();
+    $contenido = $dompdf->output();
+    $nombreDelDocumento = "1_hola.pdf";
+    $bytes = file_put_contents($nombreDelDocumento, $contenido);
+
+
+    }
 
 }

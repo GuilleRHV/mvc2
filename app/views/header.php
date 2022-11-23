@@ -14,7 +14,7 @@
               <a class="nav-link active" href="#">Link</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link disabled" href="#">Disabled</a>
+              <a class="nav-link active" href="product">Product</a>
             </li>
           </ul>
           <form class="form-inline mt-2 mt-md-0">
