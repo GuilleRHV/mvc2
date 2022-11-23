@@ -264,7 +264,6 @@ if (isset($_POST["empresamodificada"])) {
         ?>
         <label for="">Modificar contacto</label>
         <p><input type="text" name="nombremodificar"><input type="submit" name="modificar" value="Modificar"></p>
-        <input type="button" value="Actualizar y guardar" style="font-weight: bold;" name="guardar">
 
         <hr>
         <label for="">
