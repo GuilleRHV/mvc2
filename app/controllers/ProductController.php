@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers;
 require "../Product.php";
-
+use \App\Model\Product;
 class ProductController{
 
     function __construct()

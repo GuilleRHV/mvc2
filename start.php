@@ -42,6 +42,11 @@ $app->$method();
 //$app = new App();
 //////
 
-require "../core/App.php";
-$app = new \Core\App();
+//require "../core/App.php";
+//$app = new \Core\App();
 
+
+//autoload de composer
+use \Core\App;
+require 'vendor/autoload.php';
+$app = new \Core\App();
