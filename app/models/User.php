@@ -14,10 +14,20 @@ require_once '../core/Model.php';
 class User extends Model
 {
     public static function all(){ 
-        //TODO        
+        $db = User::db();
+        $sql = "select * from users";
+        $registros = $db->query($sql);
+        $users = $registros->fetchAll(PDO::FETCH_CLASS, User::class);
+        return $users;      
     }
     public static function find($id){ 
-        //TODO        
+        $db = User::db();
+        $sql= "select * from users where id=:id";
+        $registros = $db->prepare($sql);
+        $registros->execute(array(":id" => $id));
+        $registros->setFetchMode(PDO::FETCH_CLASS, User::class);
+        $user = $registros->fetch(PDO::FETCH_CLASS);
+        return $user;
     }
     public function insert(){ 
         //TODO        
