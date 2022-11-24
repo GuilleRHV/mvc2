@@ -21,6 +21,6 @@ class UserController
         // $id = (int) $args[0];
         list($id) = $args;
         $user = User::find($id);
-        require('app/views/user/show.php');
+        require('../app/views/user/show.php');
     }
 }
