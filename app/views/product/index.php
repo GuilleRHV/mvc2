@@ -29,8 +29,10 @@
                 </td>
             </tr>
         <?php } ?>
+       
         
     </table>
+    <a href="product/create">Create</a>
 </body>
 
 </html>

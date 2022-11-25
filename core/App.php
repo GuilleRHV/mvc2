@@ -40,7 +40,7 @@ class App
         
 
         //VER SI TIENE MAS ELEMENTOS
-        echo count($arguments);
+      //  echo count($arguments);
         if (count($arguments) > 0) {
             $method = array_shift($arguments);
         } else {
@@ -51,7 +51,7 @@ class App
 
         //voy a cargar el controlador. ProductoController.php
         $file = "../app/controllers/$controllerName" . ".php";
-        var_dump($file);
+      //  var_dump($file);
         if (file_exists($file)) {
 
             require_once $file; //importo el fichero

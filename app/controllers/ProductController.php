@@ -13,7 +13,7 @@ class ProductController
 
     function __construct()
     {
-        echo "<br>Constructor clase PRODUCTCONTROLLER";
+       // echo "<br>Constructor clase PRODUCTCONTROLLER";
     } //fin_constructor
 
 
@@ -26,7 +26,7 @@ class ProductController
 
     function show($args)
     {
-        echo "<br>Dentro show de PRODUCTCONTROLLER";
+      //  echo "<br>Dentro show de PRODUCTCONTROLLER";
         //metodo show de Controller de mvc00
         list($id) = $args;
         $product = Product::find($id);
