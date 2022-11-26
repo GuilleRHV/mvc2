@@ -1,0 +1,22 @@
+h1{
+    margin-top: 150px;
+    color: white;
+    border: 1px solid black;
+    width: 350px;
+    border-radius: 50px;
+    background-color: rgb(156, 84, 87);
+}
+form{
+    width: 600px;
+    margin-top: 50px;
+line-height: 65px;
+border-radius: 20px;
+border: 1px solid lightgray;
+box-shadow: 0 2px 4px rgb(124, 71, 71);
+background-color: rgb(248, 201, 215)
+}
+*{
+    text-align: center;
+    margin: 0 auto ;
+    font-weight: bolder;
+}

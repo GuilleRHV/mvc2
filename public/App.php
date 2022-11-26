@@ -8,11 +8,13 @@ class App
         session_start();
 
         if (isset($_GET["method"])) {
+            
             $method = $_GET["method"];
         }
          else {
             //Si se mantiene la sesion va directamente a valido
             if (isset($_SESSION["usuario"])) {
+                
                 $method = "valido";
             } else {
                 $method = "login";

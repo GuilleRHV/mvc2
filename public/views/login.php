@@ -12,7 +12,7 @@
 <form action="conexion.php" method="post">
 <h1>Login</h1>
 <?php
-echo "USUARIO: normaluser, PASSWORD: usudwes<br>USUARIO: adminuser, PASSWORD: admindwes";
+//echo "USUARIO: normaluser, PASSWORD: usudwes<br>USUARIO: adminuser, PASSWORD: admindwes";
 ?>
         <p><label for="">Usuario</label></p>
         <input type="text" name="usuario" id="">

@@ -27,7 +27,7 @@ if (isset($_POST["envionuevapersona"])) {
     $registros = $bd->query($sql);
     if ($registros->rowCount() > 0) {
         //Existe alguien con ese nombre
-        echo "Ya hay alguien con ese nombre";
+        //echo "Ya hay alguien con ese nombre";
         $errornuevousuario = true;
     } else {
         $sql = "insert into `personas`(`nombre`, `apellidos`, `direccion`, `telefono`) VALUES ('" . $_POST["nombre"] . "','" . $_POST["apellidos"] . "','" . $_POST["direccion"] . "','" . $_POST["telefono"] . "');";
