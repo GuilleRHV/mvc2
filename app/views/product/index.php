@@ -26,6 +26,8 @@
                 <td><?php echo $producto->fecha_compra ?></td>
                 <td>
                     <a href="/product/show/<?php echo $producto->id ?>" class="btn btn-primary">Ver </a>
+                    <a href="/product/edit/<?php echo $producto->id ?>" class="btn btn-primary">Edit </a>
+                    <a href="/product/delete/<?php echo $producto->id ?>" class="btn btn-primary">Delete </a>
                 </td>
             </tr>
         <?php } ?>
@@ -33,6 +35,7 @@
         
     </table>
     <a href="product/create">Create</a>
+    
 </body>
 
 </html>
