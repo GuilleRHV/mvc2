@@ -21,8 +21,8 @@ $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
 //preparacion por posicion
 $sentencia = $db->prepare("INSERT INTO credenciales (nombreusu,password) VALUES (?,?)");
-$nombre = "Alicia";
-$clave1 = "sombrero";
+$nombre = "Jorgete";
+$clave1 = "pass";
 $sentencia->bindParam(1,$nombre);
 $sentencia->bindParam(2,$clave1);
 
