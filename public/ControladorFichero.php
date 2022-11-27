@@ -7,5 +7,7 @@ class ControladorFichero
         $destino = "../uploads/" . $_FILES["mifile"]["name"];
         move_uploaded_file($_FILES["mifile"]["tmp_name"], $destino);
         rename("../uploads/" . $_FILES["mifile"]["name"], "../uploads/" . $_POST["nombreusuario"] . ".jpeg");
+        
+       
     }
 }

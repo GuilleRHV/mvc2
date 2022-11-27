@@ -65,7 +65,7 @@ session_start();
             session_start();
             if (isset($_SESSION["estadofoto"])) {
                 echo $_SESSION["estadofoto"];
-                $_SESSION["estadofoto"] = "";
+                unset($_SESSION["estadofoto"]);
             }
             ?>
         </p>
