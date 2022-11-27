@@ -11,7 +11,7 @@
 
 <body>
     <h1>Eliminar usuario</h1>
-    <form action="?method=valido" method="post">
+    <form action="controllers/validocontroller.php" method="post">
         <label for="">Nombre de la persona que quieres eliminar</label>
         <p><input type="text" name="nombreeliminar"></p>
         

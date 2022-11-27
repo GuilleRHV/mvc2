@@ -29,11 +29,15 @@ if (isset($_POST["envionuevapersona"])) {
         //Existe alguien con ese nombre
         //echo "Ya hay alguien con ese nombre";
         $errornuevousuario = true;
+        session_start();
+        $_SESSION["estadocrear"]="<h4 style='color: red; font-weight: bold;' >Ya existe un usuario con ese nombre</h4>";
     } else {
         $sql = "insert into `personas`(`nombre`, `apellidos`, `direccion`, `telefono`) VALUES ('" . $_POST["nombre"] . "','" . $_POST["apellidos"] . "','" . $_POST["direccion"] . "','" . $_POST["telefono"] . "');";
         $registros = $bd->query($sql);
         //Indicara un mensaje de exito
         $nuevousuario = true;
+        session_start();
+        $_SESSION["estadocrear"]="<h4 style='color: green; font-weight: bold;' >Usuario creado correctamente</h4>";
     }
     header("Location: ../?method=valido");
     
@@ -48,10 +52,13 @@ if (isset($_POST["envionuevaempresa"])) {
     if ($registros->rowCount() > 0) {
         //Existe alguien con ese nombre
         //echo "Ya hay alguien con ese nombre";
+        session_start();
+        $_SESSION["estadocrear"]="<h4 style='color: red; font-weight: bold;' >Ya existe un usuario con ese nombre</h4>";
     } else {
         $sql = "insert into `empresas`(`nombre`, `direccion`, `telefono`, `email`) VALUES ('" . $_POST["nombre"] . "','" . $_POST["direccion"] . "','" . $_POST["telefono"] . "','" . $_POST["email"] . "');";
         $registros = $bd->query($sql);
-       
+        session_start();
+        $_SESSION["estadocrear"]="<h4 style='color: green; font-weight: bold;' >Empleado creado correctamente</h4>";
     }
     header("Location: ../?method=valido");
 
@@ -78,9 +85,14 @@ if (isset($_POST["envioeliminar"])) {
     if ($registros->rowCount() > 0) {
 
         $usuarioeliminado = true;
+        session_start();
+        $_SESSION["estadoeliminar"]="<h4 style='color: green; font-weight: bold;' >Usuario eliminado correctamenter</h4>";
     } else {
         $errorusuarioeliminado = true;
+        session_start();
+        $_SESSION["estadoeliminar"]="<h4 style='color: red; font-weight: bold;' >No existe ningun usuario con ese nombre</h4>";
     }
+    header("Location: ../?method=valido");  
 }
 
 
@@ -104,6 +116,8 @@ if (isset($_POST["modificar"])) {
         session_start();
         $_SESSION["nombremodificar"] = $_POST["nombremodificar"];
         header("Location: ../?method=modificarpersona");
+    }else{
+        header("Location: ../?method=valido");  
     }
 }
 if (isset($_POST["personamodificada"])) {

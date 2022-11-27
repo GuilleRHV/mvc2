@@ -1,5 +1,5 @@
 <?php
-/////////////////////////////////////////////////////////////////////////77
+/////////////////////////////////////////////////////////////////////////
 //mysql:dbname=<nombre_bbdd>;host=<ip | nombre>;
 session_start();
 require "credencialesbbdd.php";
@@ -13,14 +13,11 @@ $bd = new PDO($dsn, $usuario, $clave);
 
 $sql = "select usuario,password from credenciales";
 $registros = $bd->query($sql);
-//echo "Numero de registros devueltos: " . $registros->rowCount();
+
 $valido = false;
 //Si no hay usuarios en la bbdd nos volvera a redirigir 
 if ($registros->rowCount() > 0) {
     foreach ($registros as $fila) {
-        /*  echo "<br>Nombre de usuario: " . $fila["usuario"];
-            echo "<br>Password: " . $fila["password"];
-            echo "<br>Password decodificada: " ;*/
 
         //PASSWORD HASH PARA CIFRAR!!
         if ($fila["usuario"] == $nombreintroducido && password_verify($passwordintroducido, $fila["password"])) {
@@ -38,9 +35,9 @@ if ($valido) {
                 2. Leer los datos: nombre, apellidos... del xml 
             */
 
-    //       session_start();
     $datos = simplexml_load_file("agenda.xml");
-    //Crear tabla
+
+    //Crear tabla PERSONAS Y EMPRESAS
 
     $sql = "DROP TABLE IF EXISTS `personas`;
                 CREATE TABLE IF NOT EXISTS `personas` (
@@ -52,7 +49,7 @@ if ($valido) {
                     `direccion` varchar(50) NOT NULL, `telefono` varchar(50) NOT NULL,`email` varchar(50) NOT NULL
                   );";
 
-    //Creamos la tabla personas
+    //Insertamos en la tabla personas
     $personas = $datos->xpath("/agenda/contacto[@tipo='persona']/*");
 
     $datospersona = [];
@@ -72,7 +69,7 @@ if ($valido) {
 
 
 
-    //Creamos la tabla empresa
+    //Insertamos en la tabla empresa
     $empresas = $datos->xpath("/agenda/contacto[@tipo='empresa']/*");
 
     $datosempresa = [];
@@ -91,27 +88,11 @@ if ($valido) {
     }
 
 
-    //Mientras dure la sesion no se ejecutara
-    //if(!isset($_SESSION["usuario"])){
     $registros = $bd->query($sql);
-    //  }
 
-
-    /*    $nombres = $datos->xpath("//nombre");
-            
-            foreach ($nombres as $nombre) {
-                
-            }*/
-
-
-
-
-    //    session_start();
     $_SESSION["usuario"] = $nombreintroducido;
-    // $app->valido();
     header("Location: .?method=valido");
 } else {
-    //header("Location: login.php");
-    // $app->invalido();
+
     header("Location: .?method=login");
 }
