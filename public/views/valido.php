@@ -59,6 +59,7 @@ session_start();
         </label>
         <p>Nombre usuario
             <input type="text" name="nombreusuario" id="">
+            <!--Maximo 5mb, solo permite png, jpg, jpeg y pdf-->
             <input type="file" name="mifile" id="" size="5000000" accept=".png,.jpeg,.pdf,.jpg">
             <input type="submit" value="Subir foto" name="subirfoto">
             <?php

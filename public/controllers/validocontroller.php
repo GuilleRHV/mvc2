@@ -235,7 +235,7 @@ if (isset($_POST["buscar"])) {
     } else {
         //SI EXISTE EL USUARIO BUSCAMOS SI TIENE FOTO DE PERFIL
 
-        /************************BUSCANDO FOTO*/
+        /************************BUSCANDO FOTO*****************************+++++++*/
         $fotoencontrada = false;
         $nombrebuscar = "../uploads/" . $_POST["nombrebuscar"] . ".jpeg";
         //  echo $nombrebuscar;
@@ -250,7 +250,13 @@ if (isset($_POST["buscar"])) {
             echo '<img src="' . $nombrebuscar . '" style="width: 150px;height: 150px"><img><br>';
             $fotoencontrada = true;
         }
-        //Con extension PDF no mostrará imagen
+        $nombrebuscar = "uploads/" . $_POST["nombrebuscar"] . ".pdf";
+        if (file_exists($nombrebuscar)) {
+            echo "<br>";
+            echo '<img src="' . $nombrebuscar . '" style="width: 150px;height: 150px"><img><br>';
+            $fotoencontrada = true;
+        }
+       
         if (!$fotoencontrada) {
             echo "<p style='color: orange;'>No existe la foto</p>";
         }
