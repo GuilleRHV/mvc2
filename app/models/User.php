@@ -31,6 +31,13 @@ class User extends Model
     }
     public function insert(){ 
         //TODO        
+        $db = User::db();
+        $stmt = $db->prepare('INSERT INTO users(name, surname, birthdate, email) VALUES(:name, :surname, :birthdate, :email)');
+        $stmt->bindValue(':name', $this->name);
+        $stmt->bindValue(':surname', $this->surname);
+        $stmt->bindValue(':birthdate', $this->birthdate);
+        $stmt->bindValue(':email', $this->email);
+        return $stmt->execute();
     }
     public function delete(){ 
         //TODO        
@@ -39,3 +46,9 @@ class User extends Model
         //TODO        
     }
 }
+
+
+
+
+
+
