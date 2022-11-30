@@ -1,6 +1,8 @@
 <?php
 namespace App\Controllers;
-require "../Product.php";
+require_once "../app/models/User.php";
+
+use App\Models\User;
 
 class LoginController{
 
@@ -16,6 +18,8 @@ class LoginController{
         //metodo home de Controller de mvc00
  //       $products = Product::all();
    //     require "views/home.php";
+   $users = User::all();
+   require("../app/views/user/formulario.php");
     }//fin_mindex
 
     function show(){
@@ -25,6 +29,10 @@ class LoginController{
       //  $product = Product::find($id);
     //    require "views/show.php";
     }//fin_mindex
+
+    function find(){
+        $persona = User::find($s);
+    }
 
 
 

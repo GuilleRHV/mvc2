@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use PDO;
@@ -13,23 +14,26 @@ require_once '../core/Model.php';
 */
 class User extends Model
 {
-    public static function all(){ 
+    public static function all()
+    {
         $db = User::db();
         $sql = "select * from users";
         $registros = $db->query($sql);
         $users = $registros->fetchAll(PDO::FETCH_CLASS, User::class);
-        return $users;      
+        return $users;
     }
-    public static function find($id){ 
+    public static function find($id)
+    {
         $db = User::db();
-        $sql= "select * from users where id=:id";
+        $sql = "select * from users where id=:id";
         $registros = $db->prepare($sql);
         $registros->execute(array(":id" => $id));
         $registros->setFetchMode(PDO::FETCH_CLASS, User::class);
         $user = $registros->fetch(PDO::FETCH_CLASS);
         return $user;
     }
-    public function insert(){ 
+    public function insert()
+    {
         //TODO        
         $db = User::db();
         $stmt = $db->prepare('INSERT INTO users(name, surname, birthdate, email) VALUES(:name, :surname, :birthdate, :email)');
@@ -39,16 +43,28 @@ class User extends Model
         $stmt->bindValue(':email', $this->email);
         return $stmt->execute();
     }
-    public function delete(){ 
+    public function delete()
+    {
         //TODO        
     }
-    public function save(){ 
+    public function save()
+    {
         //TODO        
+    }
+
+    public function setPassword($password)
+    {
+        $password = password_hash($password, PASSWORD_BCRYPT);
+        $db = User::db();
+        $stmt = $db->prepare('UPDATE users SET password = :password WHERE id = :id');
+        $stmt->bindValue(':id', $this->id);
+        $stmt->bindValue(':password', $password);
+        $stmt->execute();
+        return $password;
+    }
+
+    public function passwordVerify($password)
+    {
+        return password_verify($password, $this->password);
     }
 }
-
-
-
-
-
-
